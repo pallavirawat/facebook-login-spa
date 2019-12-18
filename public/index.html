@@ -31,11 +31,20 @@
     <div id="root"></div>
 
     <script>
-      function login(){
-        console.log("button login poressed")
+      window.fblogin = function login(){
+        console.log("inside the fblogin login")
         FB.login(function(response) {
+          window.token = response
           console.log(response)
-        });
+        }, {scope: 'public_profile, email'});
+      }
+
+      window.fbApi = function fbApi() {
+        console.log("inside the fbapi")
+        FB.api('/me?fields=id,name,email,first_name,last_name,middle_name,name_format,picture,short_name', function (userData) {
+          window.fbdata = userData
+          console.log(userData)
+        })
       }
 
       // window.fbAsyncInit = function() {
